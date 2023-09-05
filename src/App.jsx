@@ -6,7 +6,7 @@ import {
   Navigate,
   useMatch
 } from 'react-router-dom'
-import { Table, Button, Form } from 'react-bootstrap'
+import { Table, Button, Form, Alert } from 'react-bootstrap'
 
 const Home = () => (
   <div>
@@ -106,9 +106,14 @@ function App() {
   ])
 
   const [user, setUser] = useState(null)
+  const [message, setMessage] = useState(null)
 
   const login = (user) => {
     setUser(user)
+    setMessage(`welcome ${user}`)
+    setTimeout(() => {
+      setMessage(null)
+    }, 10000)
   }
 
   const padding = { padding: 5 }
@@ -120,6 +125,11 @@ function App() {
 
   return (
     <div className='container'>
+      { (message && 
+        <Alert variant='success'>
+          { message }
+        </Alert>
+      )}
       <div>
         <Link style={padding} to='/'>home</Link>
         <Link style={padding} to='/notes'>notes</Link>
